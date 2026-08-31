@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Minha Vitrine Shopee</title>
+  <style>
+    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+    .vitrine { display: flex; flex-wrap: wrap; gap: 20px; }
+    .card { background: #fff; border-radius: 8px; width: 220px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-decoration: none; color: #333; }
+    .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 6px; }
+    .card h3 { font-size: 14px; margin: 10px 0 5px; height: 40px; overflow: hidden; }
+  </style>
+</head>
+<body>
+
+  <h1>Meus Achadinhos</h1>
+  <div class="vitrine" id="vitrine"></div>
+
+  <script>
+    // Altere para o nome exato do arquivo CSV que você subir no GitHub
+    const ARQUIVO_CSV = 'produtos.csv';
+
+    fetch(ARQUIVO_CSV)
+      .then(response => response.text())
+      .then(data => {
+        const linhas = data.split('\n');
+        const container = document.getElementById('vitrine');
+
+        // Pega apenas os primeiros 50 produtos para não travar a página
+        for (let i = 1; i < Math.min(linhas.length, 50); i++) {
+          const colunas = linhas[i].split(',');
+          
+          if (colunas.length > 2) {
+            const titulo = colunas[0]; // Ajuste a posição da coluna do Título
+            const link = colunas[1];   // Ajuste a posição da coluna do Link
+            const imagem = colunas[2]; // Ajuste a posição da coluna da Imagem
+
+            const card = document.createElement('a');
+            card.className = 'card';
+            card.href = link;
+            card.target = '_blank';
+            card.innerHTML = `
+              <img src="${imagem}" alt="${titulo}">
+              <h3>${titulo}</h3>
+            `;
+            container.appendChild(card);
+          }
+        }
+      });
+  </script>
+</body>
+</html>
