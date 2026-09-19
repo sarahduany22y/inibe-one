@@ -108,7 +108,7 @@
         <h1>Comunidade de Acervos & Mídias</h1>
         <p>Você foi convidado para acessar nosso canal exclusivo no Telegram. Clique no botão abaixo para ser redirecionado com segurança.</p>
         
-        <a href="https://t.me/verificadasmodelos" onclick="redirecionarManual();" class="btn">ENTRAR NO CANAL AGORA 🚀</a>
+        <a href="https://t.me/verificadasmodelos" onclick="registrarClique();" class="btn">ENTRAR NO CANAL AGORA 🚀</a>
         
         <div class="redirect-notice">
             ⚡ Redirecionando automaticamente em 3 segundos...
@@ -125,24 +125,16 @@
 
     <script>
         const targetUrl = "https://t.me/verificadasmodelos";
-        let redirecionado = false;
 
-        function executarRedirecionamento() {
-            if (!redirecionado) {
-                redirecionado = true;
-                fbq('track', 'Lead');
-                setTimeout(() => {
-                    window.location.href = targetUrl;
-                }, 100);
-            }
+        // Clique manual: Dispara o Lead e redireciona na hora
+        function registrarClique() {
+            fbq('track', 'Lead');
         }
 
-        function redirecionarManual() {
-            executarRedirecionamento();
-        }
-
-        // Redireciona automaticamente após 3000ms (3 segundos)
-        setTimeout(executarRedirecionamento, 3000);
+        // Redirecionamento automático: Não dispara o Lead, apenas redireciona
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 3000);
     </script>
 
 </body>
